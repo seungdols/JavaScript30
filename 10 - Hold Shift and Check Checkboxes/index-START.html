@@ -99,6 +99,33 @@
   </div>
 
 <script>
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+  let lastChecked;
+
+  function handleCheck(e) {
+    let inBetween = false;
+    /*
+      e.shiftKey가 있으면, 다른 키 바인딩 이벤트도 있는건가? 
+      console.log(e.shiftKey); //alt, command key..etc is return false.
+    */
+
+    if (e.shiftKey && this.checked) {
+      checkboxes.forEach(checkbox => {
+        //console.log(checkbox);
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+        }
+
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+    lastChecked = this;
+  }
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click',handleCheck));
+
 </script>
 </body>
 </html>
