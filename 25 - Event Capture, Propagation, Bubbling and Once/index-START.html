@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Understanding JavaScript's Capture</title>
 </head>
-<body class="bod">
+<body class="body">
 
   <div class="one">
     <div class="two">
@@ -39,7 +39,19 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
 
+  function logText(e){
+    console.log(this.classList.value);
+    //e.stopPropagation();//Stop bubbling
+
+  }
+
+  //document.body.addEventListener('click', logText);
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: true//Event가 bottom-up으로 전파됨.
+    //,once: true//Event가 오직 한번만 발생함.
+  }));
 </script>
 </body>
 </html>
